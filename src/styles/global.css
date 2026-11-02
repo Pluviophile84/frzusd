@@ -1670,3 +1670,10 @@ footer {
     --travel: 18px;
   }
 }
+
+@media (max-width: 600px) {
+  html:not(.js) .header-inner nav {
+    flex-wrap: wrap;
+    gap: 4px 16px;
+  }
+}

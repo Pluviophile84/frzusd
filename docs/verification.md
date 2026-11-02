@@ -4,18 +4,26 @@ Validated in the managed cloud checkout on 2 November 2026 using Node.js 24.19.0
 
 ## Refinement
 
-The ticker remains `$FUSD` and the display name `Frozen USD`. The new pale ice asset encloses the complete approved cyan logo between separate ice layers. The exported image has actual partial alpha through the ice body (sampled alpha 64/255 below the coin), while the coin itself stays opaque. Highlights and surface detail cross in front of the coin. The same asset is used in the hero, product diagram and regenerated social card.
+The ticker remains `$FUSD` and the display name `Frozen USD`. The new pale ice asset encloses the complete approved cyan logo between separate ice layers. The exported image has actual partial alpha through the ice body, while the coin itself stays opaque. Highlights and surface detail cross in front of the coin. The same asset is used in the hero, product diagram and regenerated social card.
 
 The owner-provided `frozenusd` reference was rendered and inspected in Chromium at three animation phases. The new scene uses two wallet platforms and a full 300-unit horizontal transfer, 42-unit lift, coordinated shadow and rests at both ends. A browser test verifies both travel endpoints, peak lift, and a pause that freezes the current position. Reduced-motion and no-JavaScript modes retain a complete, still arrival composition. The previous rocking/pulse styles were removed.
 
 The top anchor now sits at the actual document origin rather than on the sticky header. Both logos and the footer return link use document scrolling without reloading the homepage. Three browser regression tests verify intermediate smooth-scroll positions and arrival at zero, and another verifies immediate reduced-motion return and updated branding.
+
+## Reserve narrative and optical-density update
+
+Added the exact supplied reserve copy in the hero, a dedicated section immediately after Hero, shared header/mobile/footer navigation, and the FAQ. The token configuration, factual table, financial clarification, official brand assets and motion implementation remain unchanged.
+
+Reduced transmission through the existing front ice layer by approximately 15%, bounded by the source alpha. Rear ice, RGB values, original texture and coin artwork are unchanged. This also covers the central emblem. Both WebP sizes, the portable SVG and social previews were rebuilt; posters contain standalone logos and remain unchanged. Actual cube usages are Hero, Idea, Product stages and social previews; the existing 404 has no cube illustration.
+
+[Matching before/after comparison](screenshots/ice-density-comparison.png) shows both export sizes against the same background and at the same resting position. [Desktop reserves](screenshots/reserves-1440.png) and [mobile reserves](screenshots/reserves-390.png) show the new section. Responsive captures at 390, 768, 901, 1024, 1100 and 1440px showed no horizontal overflow. Browser assertions cover the section order, hero anchor clearance, mobile navigation, footer links, FAQ paragraphs and intermediate-width navigation spacing.
 
 ## Results
 
 - Clean `npm ci`: passed.
 - `npm run check`: zero errors, warnings or hints.
 - `npm run build`: static homepage, 404, robots and sitemap generated successfully, with default null launch configuration and no secrets.
-- `npm test`: **8 configuration tests and 14 browser tests passed**, none skipped. Browser tests use actual production builds, including an isolated live configuration.
+- `npm test`: **8 configuration tests and 16 browser tests passed**, none skipped. Browser tests use actual production builds, including an isolated live configuration.
 - Default pre-launch has no Copy, Explorer, Buy or unconfigured social actions. Live fixture exposes address, trading and explorer controls; clipboard success and failure are announced. Invalid live values are rejected by configuration tests.
 - Keyboard menu activation, Tab order, Escape/focus restoration, FAQ, pause, reduced motion and no-JavaScript navigation/content verified.
 - Internal anchors resolve; three downloaded assets contain standalone SVG artwork; all local images decode. No browser page errors in responsive checks.
@@ -26,9 +34,9 @@ The top anchor now sits at the actual document origin rather than on the sticky 
 
 Screenshots: [mobile](screenshots/mobile.png), [tablet](screenshots/tablet.png), [desktop](screenshots/desktop.png). Motion is reduced for stable full-page visual evidence. Animation phases are captured separately: [arrival](screenshots/transfer-arrival.png), [in transit](screenshots/transfer-lift.png), [opposite wallet](screenshots/transfer-departure.png).
 
-## Performance evidence
+## Performance evidence from the preceding refinement
 
-Three cold-cache mobile Chromium lab runs against the local production preview: 390×844 at 2×, 1.6 Mbps down / 750 Kbps up, 150 ms latency, 4× CPU slowdown, four seconds of observation. LCP: **2304 / 2288 / 2272 ms**; CLS: **0 / 0 / 0**. Median LCP **2288 ms**. Raw results: [performance.json](performance.json). Reproduce with `npm run perf` while a production preview runs; `PERF_URL` can point to the eventual deployment.
+These measurements predate the reserve-section update; performance was not remeasured for this focused change. Three cold-cache mobile Chromium lab runs against the local production preview: 390×844 at 2×, 1.6 Mbps down / 750 Kbps up, 150 ms latency, 4× CPU slowdown, four seconds of observation. LCP: **2304 / 2288 / 2272 ms**; CLS: **0 / 0 / 0**. Median LCP **2288 ms**. Raw results: [performance.json](performance.json). Reproduce with `npm run perf` while a production preview runs; `PERF_URL` can point to the eventual deployment.
 
 These are synthetic local measurements, not Lighthouse scores or real-user data. They do not include Vercel edge latency, DNS/TLS, production geography or low-end physical devices. Re-measure the deployed site before making public performance claims.
 

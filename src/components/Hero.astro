@@ -1,4 +1,5 @@
 ---
+import { reserves } from '../content/home';
 import { site } from '../config/site';
 import Contract from './Contract.astro';
 import HeroArt from './HeroArt.astro';
@@ -19,6 +20,23 @@ const live = site.token.status === 'live';
       No thawing required.
     </p>
     <p class="signature">Frozen. Still moving.</p>
+    <p class="hero-reserve-claim">
+      <a href="#reserves">
+        {reserves.heroClaim}
+        <svg
+          class="arrow"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          aria-hidden="true"
+        >
+          <path d="M6 18 18 6M6 6h12v12" />
+        </svg>
+      </a>
+    </p>
     <div class="actions">
       <a class="button" href={live ? site.token.tradeUrl! : '#idea'}>
         {live ? 'Buy $FUSD' : 'Explore frozen finance'}{' '}
@@ -46,3 +64,32 @@ const live = site.token.status === 'live';
   </div>
   <HeroArt />
 </section>
+
+<style>
+  .hero-reserve-claim {
+    max-width: 440px;
+    margin-top: 18px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+  .hero-reserve-claim a {
+    text-decoration: underline;
+    text-decoration-color: #aac8d8;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+  .hero-reserve-claim a:hover {
+    color: var(--blue);
+    text-decoration-color: currentColor;
+  }
+  .hero-reserve-claim .arrow {
+    margin-left: 5px;
+  }
+  @media (max-width: 600px) {
+    .hero-reserve-claim {
+      font-size: 14px;
+      margin-top: 16px;
+    }
+  }
+</style>

@@ -1,3 +1,39 @@
+export const navigation = [
+  { label: 'The idea', href: '/#idea' },
+  { label: 'Reserves', href: '/#reserves' },
+  { label: 'How it works', href: '/#how-it-works' },
+  { label: 'The cold facts', href: '/#token' },
+  { label: 'Memes', href: '/#memes' },
+];
+export const reserves = {
+  heroClaim: 'Pegged 1:1 to an ice cube. 100% backed by cold, hard reserves.',
+  eyebrow: 'THE COLD STANDARD',
+  heading: '100% backed by cold, hard reserves.',
+  body: 'Every FUSD is pegged 1:1 to an institutional-grade ice cube, held in our Strategic Ice Reserve in Siberia. Our reserves are maintained in solid form. Unlike conventional financial institutions, we consider liquidity a temperature problem.',
+  statements: [
+    {
+      value: '1:1',
+      label: 'Ice-cube peg',
+      supporting: 'One FUSD. One ice cube.',
+    },
+    {
+      value: '100%',
+      label: 'Cold, hard backing',
+      supporting: 'Fully reserved. Deeply refrigerated.',
+    },
+    {
+      value: 'Siberia',
+      label: 'Reserve location',
+      supporting: 'Cold storage. Literally.',
+    },
+  ],
+  transparency: {
+    heading: 'Fully backed. Mostly transparent.',
+    text: 'Transparency is central to our operation. Unfortunately, so is frost.',
+    note: 'Reserve visibility may vary depending on frost conditions.',
+  },
+};
+
 export const stages = [
   ['Start frozen.', 'The dollar has already committed to the concept.'],
   ['Change wallets.', 'A new address. Same winter.'],
@@ -39,8 +75,12 @@ export const faqs = [
     'Because you enjoy the premise and want to take part in it. No financial return or dollar safety is attached to the punchline.',
   ],
   [
+    'What is FUSD pegged to?',
+    'One FUSD. One ice cube. We standardized the cube because ‘some ice’ did not look institutional enough.\n\nThis is our parody peg. FUSD is a memecoin with no dollar peg or redemption promise.',
+  ],
+  [
     'What backs it?',
-    'Creatively: cold hard memes.\nFinancially: there is no dollar-backing or redemption claim.',
+    'Our Strategic Ice Reserve in Siberia. One institutional-grade ice cube per FUSD. Cold storage. Literally.',
   ],
 ];
 export const posters = [

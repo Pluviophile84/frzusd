@@ -26,13 +26,24 @@ for (let y = 0; y < info.height; y++)
       data[i + 3] * Math.min(0.9, 0.09 + 0.65 * edge + (1 - l) * 0.55),
     );
   }
+// Keep the rear body unchanged. Reduce transmission through the existing
+// front material by ~15%, including its clear centre over the coin. The source
+// alpha bounds the effect to the existing ice, preserving texture and edges.
+const rearIce = await sharp(front, { raw: info }).png().toBuffer();
+const transmissionReduction = 0.15;
+for (let i = 3; i < front.length; i += 4) {
+  front[i] = Math.round(
+    front[i] + transmissionReduction * (data[i] - front[i]),
+  );
+}
 const ice = await sharp(front, { raw: info }).png().toBuffer();
+const rearShell = rearIce.toString('base64');
 const emblem = fs
   .readFileSync('public/brand/Frozen-USD-Master.svg')
   .toString('base64');
 const shell = ice.toString('base64');
 const scene = `<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1280" viewBox="0 0 1280 1280"><defs><linearGradient id="veil" x1="0" y1="0" x2="1" y2="1"><stop stop-color="white" stop-opacity=".19"/><stop offset=".5" stop-color="#e9faff" stop-opacity=".025"/><stop offset="1" stop-color="#a6e8ff" stop-opacity=".12"/></linearGradient><filter id="depth"><feGaussianBlur stdDeviation="13"/></filter><clipPath id="clear-front"><rect x="350" y="310" width="600" height="680" rx="55"/></clipPath></defs>
-<image href="data:image/png;base64,${shell}" width="1280" height="1280" opacity=".45"/>
+<image href="data:image/png;base64,${rearShell}" width="1280" height="1280" opacity=".45"/>
 <circle cx="637" cy="650" r="222" fill="#4ba7c7" opacity=".12" filter="url(#depth)"/>
 <circle cx="625" cy="635" r="223" fill="#d2f4ff" stroke="#a5daed" stroke-width="3"/>
 <image href="data:image/svg+xml;base64,${emblem}" x="410" y="420" width="430" height="430"/>

@@ -1,0 +1,143 @@
+---
+import { reserves } from '../content/home';
+---
+
+<section
+  id="reserves"
+  class="section wrap reserves"
+  aria-labelledby="reserves-title"
+>
+  <p class="eyebrow">{reserves.eyebrow}</p>
+  <div class="reserve-introduction">
+    <h2 id="reserves-title">{reserves.heading}</h2>
+    <p>{reserves.body}</p>
+  </div>
+  <dl class="reserve-statements">
+    {reserves.statements.map(({ value, label, supporting }) => (
+      <div>
+        <dt>{label}</dt>
+        <dd class="reserve-value">{value}</dd>
+        <dd class="reserve-supporting">{supporting}</dd>
+      </div>
+    ))}
+  </dl>
+  <div class="reserve-transparency">
+    <h3>{reserves.transparency.heading}</h3>
+    <div>
+      <p>{reserves.transparency.text}</p>
+      <p class="small muted">{reserves.transparency.note}</p>
+    </div>
+  </div>
+</section>
+<style>
+  .reserves {
+    border-top: 1px solid var(--line);
+  }
+  .reserve-introduction {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 90px;
+    align-items: start;
+  }
+  .reserve-introduction h2 {
+    max-width: 560px;
+  }
+  .reserve-introduction > p {
+    color: var(--muted);
+    max-width: 540px;
+  }
+  .reserve-statements {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 52px 0 0;
+    border-block: 1px solid var(--line);
+  }
+  .reserve-statements > div {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 0 32px;
+  }
+  .reserve-statements > div + div {
+    padding-left: 36px;
+    border-left: 1px solid var(--line);
+  }
+  .reserve-statements dt {
+    font-size: 14px;
+    font-weight: 650;
+    margin-top: 12px;
+  }
+  .reserve-statements dd {
+    margin: 0;
+  }
+  .reserve-statements .reserve-value {
+    order: -1;
+    font-size: clamp(36px, 4vw, 52px);
+    line-height: 1.15;
+    letter-spacing: -0.045em;
+  }
+  .reserve-statements .reserve-supporting {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .reserve-transparency {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 55px;
+    margin-top: 28px;
+    align-items: start;
+  }
+  .reserve-transparency h3 {
+    font-size: 19px;
+    letter-spacing: -0.025em;
+    line-height: 1.5;
+  }
+  .reserve-transparency p {
+    font-size: 15px;
+  }
+  .reserve-transparency p + p {
+    margin-top: 8px;
+    font-size: 12px;
+  }
+  @media (max-width: 1100px) {
+    .reserve-introduction {
+      gap: 45px;
+    }
+    .reserve-statements > div + div {
+      padding-left: 24px;
+    }
+  }
+  @media (max-width: 900px) {
+    .reserve-introduction {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .reserve-introduction > p {
+      max-width: 650px;
+    }
+    .reserve-transparency {
+      gap: 25px;
+      grid-template-columns: 1fr 1.2fr;
+    }
+  }
+  @media (max-width: 600px) {
+    .reserve-statements {
+      grid-template-columns: 1fr;
+      margin-top: 32px;
+    }
+    .reserve-statements > div {
+      padding: 24px 0;
+    }
+    .reserve-statements > div + div {
+      padding-left: 0;
+      border-left: 0;
+      border-top: 1px solid var(--line);
+    }
+    .reserve-transparency {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+  }
+</style>

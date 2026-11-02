@@ -1,4 +1,5 @@
 ---
+import { navigation } from '../content/home';
 import { site } from '../config/site';
 const live = site.token.status === 'live';
 ---
@@ -18,10 +19,9 @@ const live = site.token.status === 'live';
       Menu <span aria-hidden="true">+</span>
     </button>
     <nav id="navigation" aria-label="Main navigation">
-      <a href="/#idea">The idea</a>
-      <a href="/#how-it-works">How it works</a>
-      <a href="/#token">The cold facts</a>
-      <a href="/#memes">Memes</a>
+      {navigation.map(({ label, href }) => (
+        <a href={href}>{label}</a>
+      ))}
     </nav>
     <a
       class="button compact header-action"

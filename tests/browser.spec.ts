@@ -82,7 +82,9 @@ test('mobile menu keyboard, Escape focus, FAQ and pause', async ({ page }) => {
   await expect(menu).toHaveAttribute('aria-expanded', 'true');
   await page.keyboard.press('Tab');
   await expect(
-    page.getByRole('link', { name: 'The idea', exact: true }),
+    page
+      .getByRole('navigation', { name: 'Main navigation' })
+      .getByRole('link', { name: 'The idea', exact: true }),
   ).toBeFocused();
   await page.keyboard.press('Escape');
   await expect(menu).toBeFocused();
@@ -120,7 +122,9 @@ test('no JavaScript retains navigation, FAQ and complete content', async ({
   const page = await context.newPage();
   await page.goto('http://127.0.0.1:4321');
   await expect(
-    page.getByRole('link', { name: 'The idea', exact: true }),
+    page
+      .getByRole('navigation', { name: 'Main navigation' })
+      .getByRole('link', { name: 'The idea', exact: true }),
   ).toBeVisible();
   await page.locator('#faq summary').first().click();
   await expect(page.locator('#faq details').first()).toHaveAttribute(
@@ -258,4 +262,117 @@ test('ice travels between platforms with lift and a true pause', async ({
       (el) => new DOMMatrix(getComputedStyle(el).transform).m41,
     ),
   ).toBeCloseTo(-300);
+});
+
+test('reserve proposition, section order, mobile anchor and FAQ preserve the parody distinction', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  expect(
+    await page.locator('.hero').evaluate((el) => el.nextElementSibling?.id),
+  ).toBe('reserves');
+  const claim = page.locator('.hero-reserve-claim a');
+  await expect(claim).toHaveText(
+    'Pegged 1:1 to an ice cube. 100% backed by cold, hard reserves.',
+  );
+  await expect(claim).toHaveAttribute('href', '#reserves');
+  await claim.click();
+  await expect
+    .poll(() =>
+      page.evaluate(() =>
+        Math.round(
+          document.getElementById('reserves')!.getBoundingClientRect().top,
+        ),
+      ),
+    )
+    .toBe(85);
+  await expect(page.locator('#reserves h2')).toHaveText(
+    '100% backed by cold, hard reserves.',
+  );
+  await expect(page.locator('.reserve-value')).toHaveText([
+    '1:1',
+    '100%',
+    'Siberia',
+  ]);
+  await expect(page.locator('#reserves')).toContainText(
+    'Strategic Ice Reserve in Siberia',
+  );
+  const faq = page.locator('#faq details').filter({
+    has: page.locator('summary', { hasText: 'What is FUSD pegged to?' }),
+  });
+  await faq.locator('summary').click();
+  await expect(faq.locator('p')).toHaveText([
+    'One FUSD. One ice cube. We standardized the cube because ‘some ice’ did not look institutional enough.',
+    'This is our parody peg. FUSD is a memecoin with no dollar peg or redemption promise.',
+  ]);
+  expect(
+    await faq.evaluate(
+      (el) => el.nextElementSibling?.querySelector('summary')?.textContent,
+    ),
+  ).toContain('What backs it?');
+  await expect(page.locator('#token')).not.toContainText('Siberia');
+  await expect(page.locator('footer .disclaimer')).toContainText(
+    'No dollar peg or redemption.',
+  );
+  await page.getByRole('button', { name: 'Menu' }).click();
+  const nav = page.getByRole('navigation', { name: 'Main navigation' });
+  await expect(nav.getByRole('link')).toHaveText([
+    'The idea',
+    'Reserves',
+    'How it works',
+    'The cold facts',
+    'Memes',
+  ]);
+  await nav.getByRole('link', { name: 'Reserves', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Menu' })).toHaveAttribute(
+    'aria-expanded',
+    'false',
+  );
+  await expect
+    .poll(() =>
+      page.evaluate(() =>
+        Math.round(
+          document.getElementById('reserves')!.getBoundingClientRect().top,
+        ),
+      ),
+    )
+    .toBe(85);
+  await expect(
+    page
+      .getByRole('navigation', { name: 'Footer navigation' })
+      .getByRole('link'),
+  ).toHaveText([
+    'The idea',
+    'Reserves',
+    'How it works',
+    'The cold facts',
+    'Memes',
+  ]);
+});
+
+test('expanded desktop navigation fits intermediate widths', async ({
+  page,
+}) => {
+  for (const width of [901, 1024, 1100]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto('/');
+    const boxes = await Promise.all(
+      ['header .brand', '#navigation', '.header-action'].map((s) =>
+        page.locator(s).boundingBox(),
+      ),
+    );
+    const [brand, nav, action] = boxes;
+    expect(brand!.x + brand!.width).toBeLessThan(nav!.x);
+    expect(nav!.x + nav!.width).toBeLessThan(action!.x);
+    expect(action!.x + action!.width).toBeLessThanOrEqual(width);
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth),
+    ).toBe(width);
+    await expect(
+      page
+        .getByRole('navigation', { name: 'Main navigation' })
+        .getByRole('link', { name: 'Reserves', exact: true }),
+    ).toBeVisible();
+  }
 });

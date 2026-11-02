@@ -1,4 +1,5 @@
 ---
+import { navigation } from '../content/home';
 import { site } from '../config/site';
 ---
 
@@ -13,6 +14,11 @@ import { site } from '../config/site';
       Back to top ↑
     </a>
   </div>
+  <nav class="footer-navigation" aria-label="Footer navigation">
+    {navigation.map(({ label, href }) => (
+      <a href={href}>{label}</a>
+    ))}
+  </nav>
   <div class="footer-bottom">
     <div>
       <p>Frozen USD — Frozen. Still moving.</p>
@@ -60,3 +66,17 @@ import { site } from '../config/site';
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-navigation {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .footer-navigation a {
+    min-height: 44px;
+    font-size: 12px;
+  }
+</style>

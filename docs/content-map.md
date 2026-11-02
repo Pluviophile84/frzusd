@@ -1,11 +1,14 @@
 # Content map
 
+The later user-supplied two-change update controls the reserve narrative and ice density.
+
 Authority: the user-requested Website Build Prompt's selected section 8 copy takes priority over the 2 November 2026 content master and creative-canon.json. The official logo master controls geometry and colour. Supporting narrative documents inform context and are not rendered wholesale.
 
 | Public section                     | Implementation                                    | Source                             |
 | ---------------------------------- | ------------------------------------------------- | ---------------------------------- |
 | Header                             | `src/components/Header.astro`                     | Build prompt §8A                   |
 | Hero, slogan, contract state       | `Hero.astro`, `Contract.astro`                    | §8B, §9                            |
+| Reserves                           | `Reserves.astro`, `src/content/home.ts`            | Later reserve update, exact copy   |
 | Idea                               | `src/pages/index.astro#idea`                      | §8C                                |
 | Movement / Fictional Proof of Cold | `index.astro#how-it-works`, `src/content/home.ts` | §8D                                |
 | Benefits                           | `index.astro`, `home.ts`                          | §8E                                |
@@ -16,4 +19,4 @@ Authority: the user-requested Website Build Prompt's selected section 8 copy tak
 | Closing and footer                 | `index.astro`, `Footer.astro`                     | §8J                                |
 | Not found                          | `src/pages/404.astro`                             | §8K                                |
 
-“Frozen. Still moving.” remains the main slogan. “The dollar that trades frozen.” is the H1. No supply, peg, redemption, market data, wallet connection or trading guarantees were added. Supporting navigation/section labels are editorial wayfinding, not additional product claims. Dates and factual attribution in the optional note are retained exactly from the supplied selected copy.
+“Frozen. Still moving.” remains the main slogan. “The dollar that trades frozen.” is the H1. The reserve update adds a fictional 1:1 ice-cube peg and Strategic Ice Reserve in Siberia. The FAQ explicitly distinguishes this parody from a dollar peg or redemption promise. No supply, market data, wallet connection or trading guarantees were added. Supporting navigation/section labels are editorial wayfinding, not additional product claims. Dates and factual attribution in the optional note are retained exactly from the supplied selected copy.
