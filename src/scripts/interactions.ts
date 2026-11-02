@@ -42,6 +42,7 @@ if (motion && art) {
     motion.textContent = paused ? 'Replay movement' : 'Pause movement';
   };
   motion.hidden = false;
+  art.classList.add('motion-ready');
   apply(reduced.matches);
   motion.addEventListener('click', () =>
     apply(motion.getAttribute('aria-pressed') !== 'true'),

@@ -1,6 +1,7 @@
 ---
 import { site } from '../config/site';
 import Contract from './Contract.astro';
+import HeroArt from './HeroArt.astro';
 const live = site.token.status === 'live';
 ---
 
@@ -43,46 +44,5 @@ const live = site.token.status === 'live';
     </div>
     <Contract />
   </div>
-  <figure class="hero-art">
-    <div class="art-top">
-      <span>01 / FROZEN IN TRANSIT</span>
-      <span>CONCEPT ILLUSTRATION</span>
-    </div>
-    <div class="art-stage">
-      <svg class="transit-route" viewBox="0 0 620 620" aria-hidden="true">
-        <path class="route-base" d="M55 400 C160 540 480 540 565 210" />
-        <path class="route-trace" d="M55 400 C160 540 480 540 565 210" />
-      </svg>
-      <div class="ice-halo" aria-hidden="true"></div>
-
-      <span class="wallet wallet-a" aria-hidden="true">
-        <span>A</span>
-        <small>WALLET</small>
-      </span>
-      <span class="wallet wallet-b" aria-hidden="true">
-        <span>B</span>
-        <small>WALLET</small>
-      </span>
-      <img
-        class="moving-object"
-        src="/media/frozen-dollar.webp"
-        srcset="/media/frozen-dollar-small.webp 480w, /media/frozen-dollar.webp 960w"
-        sizes="(max-width: 600px) 90vw, (max-width: 900px) 45vw, 600px"
-        width="620"
-        height="620"
-        alt="The official Frozen USD coin suspended inside a frosted ice block with crystalline edges and trapped air bubbles, travelling between two wallet destinations."
-        fetchpriority="high"
-      />
-    </div>
-    <figcaption>
-      <div>
-        <span class="status-dot"></span> Location: updated
-        <br />
-        <span class="caption-indent">Temperature: unchanged</span>
-      </div>
-      <button class="motion-toggle" aria-pressed="false" hidden>
-        Pause movement
-      </button>
-    </figcaption>
-  </figure>
+  <HeroArt />
 </section>

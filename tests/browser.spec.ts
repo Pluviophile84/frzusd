@@ -226,3 +226,36 @@ test('reduced-motion return is immediate and branding is consistent', async ({
   await page.locator('footer .text-link[data-scroll-top]').click();
   expect(await page.evaluate(() => scrollY)).toBe(0);
 });
+
+test('ice travels between platforms with lift and a true pause', async ({
+  page,
+}) => {
+  await page.goto('/');
+  await expect(page.locator('.hero-art')).toHaveClass(/motion-ready/);
+  const mover = page.locator('.moving-object');
+  const transformAt = async (time: number) =>
+    mover.evaluate((el, t) => {
+      const animation = el.getAnimations()[0];
+      animation.pause();
+      animation.currentTime = t;
+      return new DOMMatrix(getComputedStyle(el).transform).m41;
+    }, time);
+  expect(await transformAt(0)).toBeCloseTo(0);
+  expect(await transformAt(7000)).toBeCloseTo(-300);
+  const lift = await page.locator('.transfer-lift').evaluate((el) => {
+    const animation = el.getAnimations()[0];
+    animation.pause();
+    animation.currentTime = 5180;
+    return new DOMMatrix(getComputedStyle(el).transform).m42;
+  });
+  expect(lift).toBeCloseTo(-42);
+  await page.getByRole('button', { name: 'Pause movement' }).click();
+  expect(
+    await mover.evaluate((el) => getComputedStyle(el).animationPlayState),
+  ).toBe('paused');
+  expect(
+    await mover.evaluate(
+      (el) => new DOMMatrix(getComputedStyle(el).transform).m41,
+    ),
+  ).toBeCloseTo(-300);
+});
