@@ -1,121 +1,98 @@
 ---
-// Transfer choreography informed by the owner's frozenusd repository,
-// HeroArt.astro at f9845579b81a76303152642afab26f2f7d182c52.
+// Original Frozen USD orbit composition, informed by the owner's description
+// of circulating tokens. Tether's live site was blocked by the network policy.
+const phases = [-1, -6, -11, -16];
 ---
 
-<figure class="hero-art transfer-scene" aria-labelledby="ice-caption">
+<figure class="hero-art orbit-scene" aria-labelledby="ice-caption">
   <div class="scene-heading">
-    <span>FROZEN IN TRANSIT</span>
-    <span>CONCEPT ILLUSTRATION</span>
+    <span>FROZEN. STILL MOVING.</span>
+    <span>$FUSD</span>
   </div>
-  <div class="transfer-stage">
+  <div class="orbit-stage">
     <svg
-      class="transfer-canvas"
-      viewBox="0 90 620 470"
+      class="orbit-canvas"
+      viewBox="0 0 620 540"
       width="620"
-      height="470"
+      height="540"
       role="img"
-      aria-label="The cyan Frozen USD coin enclosed at the centre of transparent ice, travelling intact between Wallet A and Wallet B."
+      aria-label="Frozen USD tokens circulate continuously around the larger cyan coin suspended inside clear ice."
     >
       <defs>
-        <linearGradient id="platform-top" x2="0" y2="1">
-          <stop stop-color="#fff" />
-          <stop offset="1" stop-color="#e1f3fb" />
-        </linearGradient>
-        <linearGradient id="platform-side">
-          <stop stop-color="#d0eaf5" />
-          <stop offset="1" stop-color="#aad5e8" />
-        </linearGradient>
-        <radialGradient id="contact-shadow">
-          <stop stop-color="#256780" stop-opacity=".24" />
-          <stop offset="1" stop-color="#256780" stop-opacity="0" />
+        <radialGradient id="orbit-halo">
+          <stop stop-color="#d9f3ff" stop-opacity=".8" />
+          <stop offset="1" stop-color="#edf8fd" stop-opacity="0" />
         </radialGradient>
-        <marker
-          id="transfer-arrow"
-          viewBox="0 0 10 10"
-          refX="7"
-          refY="5"
-          markerWidth="7"
-          markerHeight="7"
-          orient="auto"
-        >
-          <path
-            d="m2 1 5 4-5 4"
-            fill="none"
-            stroke="#649caf"
-            stroke-width="1.3"
-          />
-        </marker>
+        <radialGradient id="ice-ground">
+          <stop stop-color="#266782" stop-opacity=".13" />
+          <stop offset="1" stop-color="#266782" stop-opacity="0" />
+        </radialGradient>
+        <clipPath id="orbit-rear">
+          <rect width="620" height="280" />
+        </clipPath>
+        <clipPath id="orbit-front">
+          <rect y="280" width="620" height="260" />
+        </clipPath>
       </defs>
-      {[155, 455].map((x, i) => (
-        <g class="destination">
-          <path
-            d={`M${x - 105} 444v11a105 23 0 0 0 210 0v-11`}
-            fill="url(#platform-side)"
-            stroke="#a8cddd"
-          />
-          <ellipse
-            cx={x}
-            cy="444"
-            rx="105"
-            ry="23"
-            fill="url(#platform-top)"
-            stroke="#b2d6e5"
-          />
-          <ellipse
-            cx={x}
-            cy="444"
-            rx="76"
-            ry="15"
-            fill="none"
-            stroke="#82b7cc"
-            stroke-dasharray="3 6"
-          />
-          <text x={x} y="499" text-anchor="middle">
-            Wallet {i === 0 ? 'A' : 'B'}
-          </text>
-        </g>
-      ))}
-      <path
-        d="M190 402Q310 327 410 404"
-        fill="none"
-        stroke="#82afc2"
-        stroke-dasharray="3 7"
-        stroke-width="1.2"
-        marker-end="url(#transfer-arrow)"
+      <ellipse cx="310" cy="270" rx="300" ry="240" fill="url(#orbit-halo)" />
+      <ellipse cx="310" cy="441" rx="172" ry="25" fill="url(#ice-ground)" />
+      <g clip-path="url(#orbit-rear)" aria-hidden="true">
+        <ellipse class="orbit-track" cx="310" cy="280" rx="245" ry="112" />
+        {phases.map((phase) => (
+          <g
+            class="orbit-token moving-object"
+            style={`--phase: ${phase}s; --rest: ${-phase * 5}%`}
+          >
+            <g class="token-depth">
+              <circle r="28" cy="3" fill="#75b6cf" opacity=".35" />
+              <circle r="28" fill="#e3f7ff" stroke="#b5e7f8" />
+              <image
+                href="/brand/Frozen-USD-Master.svg"
+                x="-24"
+                y="-24"
+                width="48"
+                height="48"
+              />
+            </g>
+          </g>
+        ))}
+      </g>
+      <image
+        href="/media/frozen-dollar.webp"
+        x="112"
+        y="57"
+        width="396"
+        height="396"
       />
-      <g class="departure-outline" opacity=".5">
-        <path
-          d="M63 225 88 202H253V410L230 434H63Z M63 225H230V434 M230 225 253 202"
-          fill="none"
-          stroke="#8ab8cd"
-          stroke-dasharray="4 7"
-        />
+      <g clip-path="url(#orbit-front)" aria-hidden="true">
+        <ellipse class="orbit-track" cx="310" cy="280" rx="245" ry="112" />
+        {phases.map((phase) => (
+          <g
+            class="orbit-token moving-object"
+            style={`--phase: ${phase}s; --rest: ${-phase * 5}%`}
+          >
+            <g class="token-depth">
+              <circle r="28" cy="3" fill="#75b6cf" opacity=".35" />
+              <circle r="28" fill="#e3f7ff" stroke="#b5e7f8" />
+              <image
+                href="/brand/Frozen-USD-Master.svg"
+                x="-24"
+                y="-24"
+                width="48"
+                height="48"
+              />
+            </g>
+          </g>
+        ))}
       </g>
-      <g class="moving-object">
-        <ellipse
-          class="transfer-shadow"
-          cx="455"
-          cy="444"
-          rx="106"
-          ry="23"
-          fill="url(#contact-shadow)"
-        />
-        <g class="transfer-lift">
-          <image
-            href="/media/frozen-dollar.webp"
-            x="285"
-            y="145"
-            width="340"
-            height="340"
-          />
-        </g>
-      </g>
+      <text x="310" y="493" text-anchor="middle">
+        Transfer it. Trade it. No thawing required.
+      </text>
     </svg>
   </div>
   <figcaption id="ice-caption">
     <div>
-      <span class="status-dot"></span> Location: updated
+      <span class="status-dot"></span> In circulation
       <br />
       <span class="caption-indent">Temperature: unchanged</span>
     </div>
@@ -125,162 +102,110 @@
   </figcaption>
 </figure>
 <style>
-  .transfer-scene {
+  .orbit-scene {
     display: block;
     align-self: center;
     min-width: 0;
-    background: none;
-    border: 1px solid #d7e8f0;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 16px 50px #163c4e05;
+    background: radial-gradient(ellipse at 50% 43%, #eef9fe, #fff 72%);
   }
   .scene-heading {
     display: flex;
     justify-content: space-between;
-    gap: 12px;
-    padding: 24px 24px 0;
-    font: 9px/1.5 monospace;
+    padding: 20px 24px 0;
+    font: 10px/1.5 monospace;
     letter-spacing: 0.08em;
     color: var(--muted);
-    background: #f5fbfe;
   }
-  .transfer-stage {
-    background: linear-gradient(180deg, #f5fbfe, #e4f3fa);
-    position: relative;
-    isolation: isolate;
-  }
-  .transfer-stage::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(#fff9 1px, transparent 1px),
-      linear-gradient(90deg, #fff9 1px, transparent 1px);
-    background-size: 40px 40px;
-    mask-image: linear-gradient(#000, transparent);
-    z-index: -1;
-  }
-  .transfer-canvas {
+  .orbit-canvas {
     display: block;
     width: 100%;
     height: auto;
     overflow: visible;
   }
-  .destination text {
-    font:
-      12px Manrope,
-      sans-serif;
-    font-weight: 600;
-    fill: var(--ink);
-    letter-spacing: 0.03em;
+  .orbit-track {
+    fill: none;
+    stroke: #aacddd;
+    stroke-width: 1;
+    opacity: 0.7;
   }
-  .transfer-scene .moving-object {
-    animation: none;
-    transform: none;
-    filter: none;
+  .orbit-canvas text {
+    font:
+      11px Manrope,
+      sans-serif;
+    fill: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .orbit-scene .moving-object {
     width: auto;
     margin: 0;
+    filter: none;
+    offset-path: path(
+      'M 555 280 A 245 112 0 1 1 65 280 A 245 112 0 1 1 555 280'
+    );
+    offset-rotate: 0deg;
+    offset-distance: var(--rest);
+    animation: none;
   }
-  .transfer-scene figcaption {
-    padding: 16px 22px;
-    margin: 0;
-    border-top: 1px solid #d3e6ef;
-    background: #f8fcfe;
+  .token-depth {
+    transform: scale(0.9);
   }
-  .transfer-shadow {
-    transform-origin: 455px 444px;
+  .orbit-scene:global(.motion-ready) .orbit-token {
+    animation: circulate 20s linear infinite;
+    animation-delay: var(--phase);
   }
-  .transfer-scene:global(.motion-ready) .moving-object {
-    animation: transfer-x 14s infinite both;
+  .orbit-scene:global(.motion-ready) .token-depth {
+    animation: orbit-depth 20s linear infinite;
+    animation-delay: var(--phase);
   }
-  .transfer-scene:global(.motion-ready) .transfer-lift {
-    animation: transfer-y 14s infinite both;
-  }
-  .transfer-scene:global(.motion-ready) .transfer-shadow {
-    animation: transfer-shadow 14s infinite both;
-  }
-  .transfer-scene:global(.motion-ready:not(.is-moving))
-    :is(.moving-object, .transfer-lift, .transfer-shadow) {
+  .orbit-scene:global(.motion-ready:not(.is-moving))
+    :is(.orbit-token, .token-depth) {
     animation-play-state: paused;
   }
-  @keyframes transfer-x {
-    0%,
-    28% {
-      transform: translateX(0);
-      animation-timing-function: cubic-bezier(0.55, 0, 0.35, 1);
+  @keyframes circulate {
+    from {
+      offset-distance: 0%;
     }
-    46%,
-    78% {
-      transform: translateX(-300px);
-      animation-timing-function: cubic-bezier(0.55, 0, 0.35, 1);
-    }
-    96%,
-    100% {
-      transform: translateX(0);
+    to {
+      offset-distance: 100%;
     }
   }
-  @keyframes transfer-y {
+  @keyframes orbit-depth {
     0%,
-    28% {
-      transform: translateY(0);
-      animation-timing-function: cubic-bezier(0.3, 0, 0.4, 1);
-    }
-    37% {
-      transform: translateY(-42px);
-      animation-timing-function: cubic-bezier(0.6, 0, 0.7, 1);
-    }
-    46%,
-    78% {
-      transform: translateY(0);
-      animation-timing-function: cubic-bezier(0.3, 0, 0.4, 1);
-    }
-    87% {
-      transform: translateY(-42px);
-      animation-timing-function: cubic-bezier(0.6, 0, 0.7, 1);
-    }
-    96%,
+    50%,
     100% {
-      transform: translateY(0);
+      transform: scale(0.9);
+      opacity: 0.95;
     }
-  }
-  @keyframes transfer-shadow {
-    0%,
-    28%,
-    46%,
-    78%,
-    96%,
-    100% {
-      transform: scale(1);
+    25% {
+      transform: scale(1.08);
       opacity: 1;
     }
-    37%,
-    87% {
+    75% {
       transform: scale(0.72);
-      opacity: 0.45;
+      opacity: 0.65;
     }
+  }
+  .orbit-scene figcaption {
+    padding: 16px 24px;
+    margin: 0 20px;
+    border-top: 1px solid #dcebf2;
   }
   @media (max-width: 600px) {
     .scene-heading {
-      padding: 18px 16px 0;
-      font-size: 8px;
+      padding: 14px 0 0;
+      font-size: 9px;
     }
-    .transfer-scene {
+    .orbit-scene figcaption {
       margin: 0;
-      border-radius: 12px;
+      padding: 14px 0;
     }
-    .transfer-scene figcaption {
-      padding: 12px 14px;
-    }
-    .destination text {
-      font-size: 15px;
+    .orbit-canvas text {
+      font-size: 13px;
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .transfer-scene:global(.motion-ready)
-      :is(.moving-object, .transfer-lift, .transfer-shadow) {
+    .orbit-scene:global(.motion-ready) :is(.orbit-token, .token-depth) {
       animation: none !important;
-      transform: none !important;
     }
   }
 </style>

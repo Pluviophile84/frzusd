@@ -106,6 +106,7 @@ test('reduced motion is still and respects changes', async ({ page }) => {
   expect(
     await page
       .locator('.moving-object')
+      .first()
       .evaluate((el) => getComputedStyle(el).animationName),
   ).toBe('none');
   await expect(
@@ -135,6 +136,7 @@ test('no JavaScript retains navigation, FAQ and complete content', async ({
   expect(
     await page
       .locator('.moving-object')
+      .first()
       .evaluate((el) => getComputedStyle(el).animationName),
   ).toBe('none');
   await context.close();
@@ -231,37 +233,60 @@ test('reduced-motion return is immediate and branding is consistent', async ({
   expect(await page.evaluate(() => scrollY)).toBe(0);
 });
 
-test('ice travels between platforms with lift and a true pause', async ({
+test('tokens circulate with depth, pause in place and retain a static reduced-motion scene', async ({
   page,
 }) => {
   await page.goto('/');
   await expect(page.locator('.hero-art')).toHaveClass(/motion-ready/);
-  const mover = page.locator('.moving-object');
-  const transformAt = async (time: number) =>
-    mover.evaluate((el, t) => {
+  const token = page.locator('.orbit-token').first();
+  const sampleAt = async (time: number) =>
+    token.evaluate((el, t) => {
       const animation = el.getAnimations()[0];
       animation.pause();
       animation.currentTime = t;
-      return new DOMMatrix(getComputedStyle(el).transform).m41;
+      const box = el.getBoundingClientRect();
+      return {
+        x: box.x,
+        y: box.y,
+        distance: getComputedStyle(el).offsetDistance,
+      };
     }, time);
-  expect(await transformAt(0)).toBeCloseTo(0);
-  expect(await transformAt(7000)).toBeCloseTo(-300);
-  const lift = await page.locator('.transfer-lift').evaluate((el) => {
-    const animation = el.getAnimations()[0];
-    animation.pause();
-    animation.currentTime = 5180;
-    return new DOMMatrix(getComputedStyle(el).transform).m42;
-  });
-  expect(lift).toBeCloseTo(-42);
+  const start = await sampleAt(0);
+  const quarter = await sampleAt(5000);
+  expect(Math.abs(quarter.x - start.x)).toBeGreaterThan(60);
+  expect(Math.abs(quarter.y - start.y)).toBeGreaterThan(30);
+  const depths = await page.locator('.token-depth').evaluateAll((els) =>
+    els.map((el) => {
+      const a = el.getAnimations()[0];
+      a.pause();
+      a.currentTime = 0;
+      return new DOMMatrix(getComputedStyle(el).transform).a;
+    }),
+  );
+  expect(Math.max(...depths) - Math.min(...depths)).toBeGreaterThan(0.15);
   await page.getByRole('button', { name: 'Pause movement' }).click();
+  const paused = await token.evaluate(
+    (el) => getComputedStyle(el).offsetDistance,
+  );
+  await page.waitForTimeout(200);
   expect(
-    await mover.evaluate((el) => getComputedStyle(el).animationPlayState),
-  ).toBe('paused');
+    await token.evaluate((el) => getComputedStyle(el).offsetDistance),
+  ).toBe(paused);
   expect(
-    await mover.evaluate(
-      (el) => new DOMMatrix(getComputedStyle(el).transform).m41,
-    ),
-  ).toBeCloseTo(-300);
+    await page
+      .locator('.orbit-token, .token-depth')
+      .evaluateAll((els) =>
+        els.every((el) => getComputedStyle(el).animationPlayState === 'paused'),
+      ),
+  ).toBe(true);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  const positions = await page
+    .locator('.orbit-token')
+    .evaluateAll((els) =>
+      els.slice(0, 4).map((el) => getComputedStyle(el).offsetDistance),
+    );
+  expect(new Set(positions).size).toBe(4);
+  await expect(page.locator('.orbit-canvas')).toBeVisible();
 });
 
 test('reserve proposition, section order, mobile anchor and FAQ preserve the parody distinction', async ({

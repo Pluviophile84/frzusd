@@ -57,13 +57,13 @@ const emblem = fs
 const shell = ice.toString('base64');
 const scene = `<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1280" viewBox="0 0 1280 1280"><defs><linearGradient id="veil" x1="0" y1="0" x2="1" y2="1"><stop stop-color="white" stop-opacity=".19"/><stop offset=".5" stop-color="#e9faff" stop-opacity=".025"/><stop offset="1" stop-color="#a6e8ff" stop-opacity=".12"/></linearGradient><filter id="depth"><feGaussianBlur stdDeviation="13"/></filter><clipPath id="clear-front"><rect x="350" y="310" width="600" height="680" rx="55"/></clipPath></defs>
 <image href="data:image/png;base64,${rearShell}" width="1280" height="1280" opacity=".45"/>
-<g transform="translate(625 635) scale(1.2) translate(-625 -635)">
+<g transform="translate(625 681) scale(1.416) translate(-625 -635)">
 <circle cx="637" cy="650" r="222" fill="#4ba7c7" opacity=".12" filter="url(#depth)"/>
 <circle cx="625" cy="635" r="223" fill="#d2f4ff" stroke="#a5daed" stroke-width="3"/>
 <image href="data:image/svg+xml;base64,${emblem}" x="410" y="420" width="430" height="430"/>
 </g>
 <image href="data:image/png;base64,${shell}" width="1280" height="1280"/>
-<g clip-path="url(#clear-front)"><rect x="350" y="310" width="600" height="680" fill="url(#veil)"/><path d="M337 414C468 440 512 481 598 525S770 558 937 610" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="3"/><path d="M338 420C468 446 511 485 596 529S770 563 937 615" fill="none" stroke="#a3d7e8" stroke-opacity=".2" stroke-width="1"/><path d="M820 320 354 830" stroke="white" stroke-opacity=".12" stroke-width="25"/></g></svg>`;
+<g clip-path="url(#clear-front)"><rect x="350" y="310" width="600" height="680" fill="url(#veil)"/></g></svg>`;
 const master = await sharp(Buffer.from(scene)).png().toBuffer();
 await sharp(master)
   .resize(960, 960)
