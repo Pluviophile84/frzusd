@@ -1,10 +1,10 @@
 ---
 import { site, indexable } from '../config/site';
 import '../styles/global.css';
-const { title = 'FROZEN USD — Frozen. Still moving.', notFound = false } =
+const { title = 'Frozen USD — Frozen. Still moving.', notFound = false } =
   Astro.props;
 const description =
-  'The dollar that trades frozen. Transfer it. Trade it. No thawing required. $FRZUSD is a memecoin parody of stablecoins and the freeze button.';
+  'The dollar that trades frozen. Transfer it. Trade it. No thawing required. $FUSD is a memecoin parody of stablecoins and the freeze button.';
 const canonical = site.canonicalOrigin
   ? new URL(Astro.url.pathname, site.canonicalOrigin).href
   : null;
@@ -47,12 +47,13 @@ const canonical = site.canonicalOrigin
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="FROZEN USD. Frozen. Still moving. The dollar that trades frozen."
+      content="Frozen USD. Frozen. Still moving. The dollar that trades frozen."
     />
     {canonical && <meta property="og:url" content={canonical} />}
     <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
+    <div id="top" tabindex="-1"></div>
     <a class="skip" href="#main">
       Skip to content
     </a>

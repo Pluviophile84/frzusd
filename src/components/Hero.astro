@@ -6,7 +6,7 @@ const live = site.token.status === 'live';
 
 <section class="hero wrap" aria-labelledby="hero-title">
   <div class="hero-copy">
-    <div class="eyebrow">FROZEN USD · $FRZUSD</div>
+    <div class="eyebrow">Frozen USD · $FUSD</div>
     <span class="identity">MEMECOIN PARODY</span>
     <h1 id="hero-title">
       The dollar that
@@ -20,7 +20,7 @@ const live = site.token.status === 'live';
     <p class="signature">Frozen. Still moving.</p>
     <div class="actions">
       <a class="button" href={live ? site.token.tradeUrl! : '#idea'}>
-        {live ? 'Buy $FRZUSD' : 'Explore frozen finance'}{' '}
+        {live ? 'Buy $FUSD' : 'Explore frozen finance'}{' '}
         <span aria-hidden="true">
           <svg
             class="arrow"
@@ -49,20 +49,28 @@ const live = site.token.status === 'live';
       <span>CONCEPT ILLUSTRATION</span>
     </div>
     <div class="art-stage">
-      <div class="orbit orbit-one"></div>
-      <div class="orbit orbit-two"></div>
+      <svg class="transit-route" viewBox="0 0 620 620" aria-hidden="true">
+        <path class="route-base" d="M55 400 C160 540 480 540 565 210" />
+        <path class="route-trace" d="M55 400 C160 540 480 540 565 210" />
+      </svg>
+      <div class="ice-halo" aria-hidden="true"></div>
+
       <span class="wallet wallet-a" aria-hidden="true">
-        A
+        <span>A</span>
+        <small>WALLET</small>
       </span>
       <span class="wallet wallet-b" aria-hidden="true">
-        B
+        <span>B</span>
+        <small>WALLET</small>
       </span>
       <img
         class="moving-object"
-        src="/media/frozen-dollar.svg"
+        src="/media/frozen-dollar.webp"
+        srcset="/media/frozen-dollar-small.webp 480w, /media/frozen-dollar.webp 960w"
+        sizes="(max-width: 600px) 90vw, (max-width: 900px) 45vw, 600px"
         width="620"
         height="620"
-        alt="The official Frozen USD coin suspended inside a clear, beveled ice block, travelling between two wallet destinations."
+        alt="The official Frozen USD coin suspended inside a frosted ice block with crystalline edges and trapped air bubbles, travelling between two wallet destinations."
         fetchpriority="high"
       />
     </div>

@@ -74,8 +74,8 @@ export function validateSite(config: SiteConfig): SiteConfig {
 }
 export const site = validateSite({
   brand: {
-    name: 'FROZEN USD',
-    ticker: '$FRZUSD',
+    name: 'Frozen USD',
+    ticker: '$FUSD',
     slogan: 'Frozen. Still moving.',
   },
   canonicalOrigin: null,

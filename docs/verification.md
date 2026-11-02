@@ -2,12 +2,18 @@
 
 Validated in the managed cloud checkout on 2 November 2026 using Node.js 24.19.0, npm 11.9.0 and system Chromium. Dependencies are exact versions in the generated npm lockfile.
 
+## Refinement
+
+The ticker is now `$FUSD`, with the display name `Frozen USD` across page copy, metadata and regenerated posters/social artwork. A textured ice render with the unchanged official symbol replaces the glass-like vector cube. Responsive WebP assets serve the hero and movement diagram. Motion now coordinates the travelling object, route trace and wallet accents; one-time section entrances and subtle control hover states round out the interaction treatment. Reduced-motion preferences disable animation.
+
+The top anchor now sits at the actual document origin rather than on the sticky header. Both logos and the footer return link use document scrolling without reloading the homepage. Three browser regression tests verify intermediate smooth-scroll positions and arrival at zero, and another verifies immediate reduced-motion return and updated branding.
+
 ## Results
 
 - Clean `npm ci`: passed.
 - `npm run check`: zero errors, warnings or hints.
 - `npm run build`: static homepage, 404, robots and sitemap generated successfully, with default null launch configuration and no secrets.
-- `npm test`: **8 configuration tests and 9 browser tests passed**, none skipped. Browser tests use actual production builds, including an isolated live configuration.
+- `npm test`: **8 configuration tests and 13 browser tests passed**, none skipped. Browser tests use actual production builds, including an isolated live configuration.
 - Default pre-launch has no Copy, Explorer, Buy or unconfigured social actions. Live fixture exposes address, trading and explorer controls; clipboard success and failure are announced. Invalid live values are rejected by configuration tests.
 - Keyboard menu activation, Tab order, Escape/focus restoration, FAQ, pause, reduced motion and no-JavaScript navigation/content verified.
 - Internal anchors resolve; three downloaded assets contain standalone SVG artwork; all local images decode. No browser page errors in responsive checks.
@@ -20,7 +26,7 @@ Screenshots: [mobile](screenshots/mobile.png), [tablet](screenshots/tablet.png),
 
 ## Performance evidence
 
-Three cold-cache mobile Chromium lab runs against the local production preview: 390×844 at 2×, 1.6 Mbps down / 750 Kbps up, 150 ms latency, 4× CPU slowdown, four seconds of observation. LCP: **648 / 660 / 676 ms**; CLS: **0 / 0 / 0**. Median LCP **660 ms**. Raw results: [performance.json](performance.json). Reproduce with `npm run perf` while a production preview runs; `PERF_URL` can point to the eventual deployment.
+Three cold-cache mobile Chromium lab runs against the local production preview: 390×844 at 2×, 1.6 Mbps down / 750 Kbps up, 150 ms latency, 4× CPU slowdown, four seconds of observation. LCP: **2352 / 2368 / 2360 ms**; CLS: **0 / 0 / 0**. Median LCP **2360 ms**. Raw results: [performance.json](performance.json). Reproduce with `npm run perf` while a production preview runs; `PERF_URL` can point to the eventual deployment.
 
 These are synthetic local measurements, not Lighthouse scores or real-user data. They do not include Vercel edge latency, DNS/TLS, production geography or low-end physical devices. Re-measure the deployed site before making public performance claims.
 

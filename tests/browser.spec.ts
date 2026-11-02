@@ -18,9 +18,7 @@ for (const [width, height] of [
       'The dollar that trades frozen.',
     );
     await expect(page.locator('[data-copy]')).toHaveCount(0);
-    await expect(page.getByRole('link', { name: 'Buy $FRZUSD' })).toHaveCount(
-      0,
-    );
+    await expect(page.getByRole('link', { name: 'Buy $FUSD' })).toHaveCount(0);
     await expect(page.getByRole('link', { name: 'Follow on X' })).toHaveCount(
       0,
     );
@@ -152,7 +150,7 @@ test('live fixture enables genuine controls and clipboard success', async ({
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.goto('http://127.0.0.1:4322');
   await expect(
-    page.getByRole('link', { name: 'Buy $FRZUSD' }).first(),
+    page.getByRole('link', { name: 'Buy $FUSD' }).first(),
   ).toHaveAttribute('href', /^https:\/\/pump.fun\/coin\//);
   await expect(
     page.getByRole('link', { name: 'Explorer' }).first(),
@@ -183,4 +181,48 @@ test('clipboard failure is announced with manual fallback', async ({
   await expect(page.locator('code').first()).toHaveText(
     'So11111111111111111111111111111111111111112',
   );
+});
+
+for (const selector of [
+  'header .brand',
+  'footer .brand',
+  'footer [data-scroll-top].text-link',
+]) {
+  test(`smooth return to top without reload: ${selector}`, async ({ page }) => {
+    await page.goto('/');
+    await page.evaluate(() => {
+      document.documentElement.dataset.navigationMarker = 'retained';
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'instant',
+      });
+    });
+    const link = page.locator(selector);
+    if (selector.startsWith('header')) await expect(link).toBeVisible();
+    await link.click();
+    // A smooth return has intermediate scroll positions instead of a reload/jump.
+    expect(await page.evaluate(() => scrollY)).toBeGreaterThan(0);
+    await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+    await expect(page.locator('html')).toHaveAttribute(
+      'data-navigation-marker',
+      'retained',
+    );
+  });
+}
+test('reduced-motion return is immediate and branding is consistent', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  await expect(page.locator('header .brand')).toHaveText('Frozen USD');
+  await expect(page.locator('.hero-copy')).toContainText('$FUSD');
+  await expect(page.locator('body')).not.toContainText('$FRZUSD');
+  await page.evaluate(() =>
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'instant',
+    }),
+  );
+  await page.locator('footer .text-link[data-scroll-top]').click();
+  expect(await page.evaluate(() => scrollY)).toBe(0);
 });

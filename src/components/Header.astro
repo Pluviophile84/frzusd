@@ -3,11 +3,11 @@ import { site } from '../config/site';
 const live = site.token.status === 'live';
 ---
 
-<header id="top">
+<header>
   <div class="header-inner wrap">
-    <a class="brand" href="/" aria-label="Frozen USD home">
+    <a class="brand" href="/#top" data-scroll-top aria-label="Frozen USD home">
       <img src="/brand/Frozen-USD-Master.svg" width="38" height="38" alt="" />
-      FROZEN USD
+      Frozen USD
     </a>
     <button
       class="menu-toggle"
@@ -27,7 +27,7 @@ const live = site.token.status === 'live';
       class="button compact header-action"
       href={live ? site.token.tradeUrl! : '/#token'}
     >
-      {live ? 'Buy $FRZUSD' : 'Token details'}{' '}
+      {live ? 'Buy $FUSD' : 'Token details'}{' '}
       <span aria-hidden="true">
         <svg
           class="arrow"

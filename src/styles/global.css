@@ -1548,3 +1548,338 @@ footer {
     position: relative;
   }
 }
+
+/* Refined identity, tactile controls and a more deliberate product stage. */
+.brand {
+  font-size: 20px;
+  font-weight: 650;
+  letter-spacing: -0.065em;
+  gap: 10px;
+}
+#top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  outline: none;
+}
+.header-inner {
+  min-height: 80px;
+}
+.button {
+  border-radius: 6px;
+  box-shadow: 0 4px 12px #0718270c;
+  transition:
+    background 0.25s,
+    box-shadow 0.25s,
+    transform 0.25s;
+}
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px #07182720;
+}
+.button:active {
+  transform: translateY(0);
+}
+.button .arrow,
+.text-link span {
+  transition: transform 0.25s;
+}
+.button:hover .arrow {
+  transform: translate(2px, -2px);
+}
+.text-link:hover span {
+  transform: translateX(3px);
+}
+.hero {
+  padding-block: 52px 56px;
+  gap: 45px;
+  min-height: 730px;
+}
+.hero h1 {
+  letter-spacing: -0.06em;
+  font-weight: 500;
+}
+.hero .signature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero .signature::before {
+  content: '';
+  width: 23px;
+  height: 1px;
+  background: var(--blue);
+}
+.hero-art {
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    #e4f4fb 0,
+    #f6fbfd80 48%,
+    #fff0 70%
+  );
+}
+.art-top {
+  padding-top: 5px;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+}
+.art-stage {
+  perspective: 1000px;
+}
+.moving-object {
+  transform: none;
+  filter: drop-shadow(0 18px 16px #23566a0a);
+}
+.hero-art .moving-object {
+  position: relative;
+  z-index: 2;
+}
+.ice-halo {
+  position: absolute;
+  width: 68%;
+  height: 45%;
+  left: 16%;
+  top: 38%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #a9dcee45, transparent 70%);
+  filter: blur(16px);
+}
+.transit-route {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  z-index: 0;
+  fill: none;
+  stroke-width: 1;
+}
+.route-base {
+  stroke: #c2dbe6;
+  stroke-dasharray: 3 7;
+}
+.route-trace {
+  stroke: #005570;
+  stroke-width: 1.5;
+  stroke-dasharray: 65 1000;
+  stroke-dashoffset: 80;
+  opacity: 0;
+}
+.wallet {
+  top: 61%;
+  width: 48px;
+  height: 49px;
+  gap: 3px;
+  align-content: center;
+  z-index: 3;
+  border-radius: 5px;
+  border-color: #c8dde7;
+  box-shadow: 0 5px 16px #173a5010;
+  background: #ffffffed;
+  transition: border-color 0.3s;
+}
+.wallet small {
+  font:
+    7px Manrope,
+    sans-serif;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.wallet-a {
+  left: 2%;
+}
+.wallet-b {
+  right: 2%;
+  top: 29%;
+}
+.is-moving .moving-object {
+  animation: ice-transit 10s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+.is-moving .route-trace {
+  animation: route-travel 10s ease-in-out infinite;
+}
+.is-moving .wallet-a {
+  animation: wallet-depart 10s ease-in-out infinite;
+}
+.is-moving .wallet-b {
+  animation: wallet-arrive 10s ease-in-out infinite;
+}
+.hero-art:not(.is-moving) .route-trace {
+  opacity: 0.45;
+  stroke-dashoffset: -380;
+}
+@keyframes ice-transit {
+  0%,
+  12%,
+  100% {
+    transform: translate(calc(-1 * var(--travel, 34px)), 12px) rotate(-2deg);
+  }
+  45%,
+  58% {
+    transform: translate(var(--travel, 34px), -18px) rotate(2deg);
+  }
+  78% {
+    transform: translate(7px, -6px) rotate(0);
+  }
+}
+@keyframes route-travel {
+  0%,
+  10% {
+    stroke-dashoffset: 80;
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.65;
+  }
+  58% {
+    stroke-dashoffset: -650;
+    opacity: 0.65;
+  }
+  68%,
+  100% {
+    stroke-dashoffset: -700;
+    opacity: 0;
+  }
+}
+@keyframes wallet-depart {
+  0%,
+  15%,
+  100% {
+    border-color: #005570;
+    box-shadow: 0 0 0 5px #79daff18;
+  }
+  35%,
+  80% {
+    border-color: #c8dde7;
+    box-shadow: 0 5px 16px #173a5010;
+  }
+}
+@keyframes wallet-arrive {
+  0%,
+  25%,
+  90%,
+  100% {
+    border-color: #c8dde7;
+    box-shadow: 0 5px 16px #173a5010;
+  }
+  48%,
+  65% {
+    border-color: #005570;
+    box-shadow: 0 0 0 5px #79daff18;
+  }
+}
+.motion-toggle {
+  border-radius: 30px;
+  padding-inline: 15px;
+  background: #ffffffb0;
+  transition: border-color 0.2s;
+}
+.motion-toggle:hover {
+  border-color: var(--blue);
+}
+.posters figure {
+  transition: transform 0.35s;
+}
+.posters figure:hover {
+  transform: translateY(-6px);
+}
+.posters img {
+  border-radius: 3px;
+  box-shadow: 0 14px 28px #173a5008;
+}
+.stage-art img {
+  transition: transform 0.5s;
+}
+.stage:hover .stage-art img {
+  transform: translateY(-9px);
+}
+.satire {
+  background:
+    radial-gradient(ellipse at 95% 15%, #123348, transparent 60%), var(--ink);
+}
+.final-cta {
+  background:
+    radial-gradient(ellipse at 50% 0%, #c9f0ff 0, transparent 70%), var(--cyan);
+}
+.has-entered {
+  animation: section-arrive 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes section-arrive {
+  from {
+    opacity: 0.35;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 900px) {
+  .hero {
+    gap: 20px;
+    min-height: 650px;
+  }
+  .brand {
+    font-size: 19px;
+  }
+  .header-inner {
+    min-height: 74px;
+  }
+}
+@media (max-width: 600px) {
+  .hero {
+    padding-block: 36px 30px;
+    gap: 32px;
+    min-height: 0;
+  }
+  .hero-art {
+    margin-inline: -4px;
+  }
+  .header-inner {
+    min-height: 70px;
+  }
+  .hero h1 {
+    font-size: 50px;
+  }
+  .wallet {
+    width: 38px;
+    height: 42px;
+  }
+  .art-top {
+    font-size: 8px;
+  }
+  .brand {
+    font-size: 20px;
+  }
+  .hero .actions {
+    gap: 16px;
+  }
+  .hero .signature {
+    font-size: 14px;
+  }
+  .footer-top .brand {
+    font-size: 20px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .is-moving .moving-object {
+    transform: none;
+  }
+  .button:hover,
+  .posters figure:hover,
+  .stage:hover .stage-art img {
+    transform: none;
+  }
+}
+
+.hero-art .moving-object {
+  width: 90%;
+  margin: 5% auto;
+}
+@media (max-width: 600px) {
+  .hero-art {
+    --travel: 18px;
+  }
+}

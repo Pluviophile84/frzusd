@@ -3,21 +3,21 @@
   "results": [
     {
       "run": 1,
-      "lcp": 648,
+      "lcp": 2352,
       "cls": 0,
-      "transferBytes": 37273
+      "transferBytes": 401145
     },
     {
       "run": 2,
-      "lcp": 660,
+      "lcp": 2368,
       "cls": 0,
-      "transferBytes": 37273
+      "transferBytes": 401145
     },
     {
       "run": 3,
-      "lcp": 676,
+      "lcp": 2360,
       "cls": 0,
-      "transferBytes": 37273
+      "transferBytes": 401145
     }
   ]
 }

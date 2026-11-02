@@ -20,7 +20,7 @@ export const benefits = [
 export const faqs = [
   [
     'Is Frozen USD a stablecoin?',
-    'It has the brochure confidence of one. $FRZUSD is a memecoin with no dollar peg or redemption promise.',
+    'It has the brochure confidence of one. $FUSD is a memecoin with no dollar peg or redemption promise.',
   ],
   [
     'How can it be frozen and still move?',
@@ -35,7 +35,7 @@ export const faqs = [
     "No. We do not have access to another issuer's controls or provide an unfreezing service.",
   ],
   [
-    'Why hold $FRZUSD?',
+    'Why hold $FUSD?',
     'Because you enjoy the premise and want to take part in it. No financial return or dollar safety is attached to the punchline.',
   ],
   [

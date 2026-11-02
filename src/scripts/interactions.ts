@@ -66,3 +66,46 @@ document
       }
     });
   });
+
+// Scroll the document itself: a sticky header is not a reliable anchor target.
+document
+  .querySelectorAll<HTMLAnchorElement>('[data-scroll-top]')
+  .forEach((link) => {
+    link.addEventListener('click', (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
+        return;
+      const target = new URL(link.href);
+      if (target.pathname !== location.pathname) return;
+      event.preventDefault();
+      document.getElementById('top')?.focus({ preventScroll: true });
+      window.scrollTo({
+        top: 0,
+        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? 'instant'
+          : 'smooth',
+      });
+      history.replaceState(null, '', location.pathname + location.search);
+    });
+  });
+// Reveal once, with no hidden content if JavaScript or reduced motion is in use.
+if (
+  !matchMedia('(prefers-reduced-motion: reduce)').matches &&
+  'IntersectionObserver' in window
+) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('has-entered');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 },
+  );
+  document
+    .querySelectorAll(
+      '.section-heading, .benefit-grid article, .stage, .community-heading, .posters figure',
+    )
+    .forEach((el) => observer.observe(el));
+}

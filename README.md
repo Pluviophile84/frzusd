@@ -1,6 +1,6 @@
-# FROZEN USD
+# Frozen USD
 
-A static, pre-launch memecoin parody website. Built with Astro 7, strict TypeScript, native components and small browser modules. The official forked-dollar emblem appears inside an original layered SVG ice illustration. Manrope is self-hosted. No wallet connection, backend, secrets or market API is required.
+A static, pre-launch memecoin parody website. Built with Astro 7, strict TypeScript, native components and small browser modules. The official forked-dollar emblem appears inside a textured ice product render. Manrope is self-hosted. No wallet connection, backend, secrets or market API is required.
 
 ## Develop and verify
 
@@ -66,7 +66,7 @@ Pre-launch is always noindex. Vercel preview builds remain noindex. Only `live` 
 - `src/styles/global.css`: tokens, typography, responsive layouts and motion.
 - `public/brand/`: unchanged official SVG variants.
 - `assets-original/`: complete original logo package, outside the public web root.
-- `public/media/`: finished ice illustration, outlined downloadable SVG posters and committed 1200×630 social PNG.
+- `public/media/`: finished responsive ice render, outlined downloadable SVG posters and committed 1200×630 social PNG.
 - `public/fonts/`: Latin variable Manrope WOFF2 and OFL licence.
 
 The internal narrative pack is not served or committed as public content. [Content map](docs/content-map.md) and [asset provenance](docs/assets-and-references.md) record the supplied sources and design decisions. Asset generation is optional development work; Vercel builds use the committed finished files and do not require Python, fonts installed on the host, or browser rendering.
