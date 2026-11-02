@@ -6,7 +6,9 @@ Validated in the managed cloud checkout on 2 November 2026 using Node.js 24.19.0
 
 The ticker remains `$FUSD` and the display name `Frozen USD`. The new pale ice asset encloses the complete approved cyan logo between separate ice layers. The exported image has actual partial alpha through the ice body, while the coin itself stays opaque. Highlights and surface detail cross in front of the coin. The same asset is used in the hero, product diagram and regenerated social card.
 
-The current hero replaces the earlier two-wallet transfer with a 20-second token orbit. Four official cyan tokens pass behind and in front of the central ice cube, with scale and opacity changing by depth. Browser assertions verify movement on both axes, varying depth, pause holding the current position, and four distinct static positions under reduced motion. The requested live Tether reference returned a proxy-policy 403; the composition follows the owner's description rather than a claimed visual inspection.
+The current hero uses one stationary frozen cube, three outer frozen cubes and eight inner frozen cubes. The outer carriers rotate clockwise and inner carriers counterclockwise, each with a 100-second linear period. Separate counter-rotations cancel every carrier's full angle and starting phase. All objects retain the complete approved ice enclosure. Five dotted circular guides sit behind the objects. Artwork and all non-hero sections, including the current light Reserves treatment, are unchanged by this hero-only update.
+
+Browser assertions sample a full revolution at 0, 12.5, 25, 50, 75, 99.999 and 100 seconds at mobile and desktop widths. They check all twelve image bounds for containment and pairwise separation, combined rotation matrices for upright orientation, opposite directions, linear 100-second timing and matching loop endpoints. A separate test checks offscreen and hidden-tab pausing, a manual pause surviving visibility changes, resume and reduced-motion presentation.
 
 The top anchor now sits at the actual document origin rather than on the sticky header. Both logos and the footer return link use document scrolling without reloading the homepage. Three browser regression tests verify intermediate smooth-scroll positions and arrival at zero, and another verifies immediate reduced-motion return and updated branding.
 
@@ -20,14 +22,14 @@ Reserves now has a light glacial gradient (#f1f9fc → #e3f2f8), ink headings, t
 
 [Current matching coin comparison](screenshots/coin-position-comparison.png) shows both export sizes at the same size and background. [Desktop reserves](screenshots/reserves-1440.png) and [mobile reserves](screenshots/reserves-390.png) show the light treatment. Hero screenshots at 390, 768, 901, 1024, 1100 and 1440px showed no horizontal overflow. The enlarged coin remains contained by a visible ice border. Actual small cubes in Idea and Product stages and the social PNG were inspected.
 
-Orbit phases: [start](screenshots/orbit-start.png), [2.5 seconds](screenshots/orbit-eighth.png), [6.5 seconds](screenshots/orbit-third.png). Earlier density/clear-ice and transfer screenshots remain historical evidence.
+Current hero screenshots: [desktop](screenshots/hero-orbital-desktop.png), [mobile](screenshots/hero-orbital-mobile.png). [Six orbital positions](screenshots/frozen-orbit-cycle.png) (0, 12.5, 25, 50, 75 and 99.999 seconds) were captured. Detailed orbital captures across a complete cycle were inspected at 390, 768 and 1440px. Every object has visible structural ice edges and a contained emblem; no bare token markers appear. No horizontal overflow was observed. Earlier orbit/transfer captures are historical.
 
 ## Results
 
 - Clean `npm ci`: passed.
 - `npm run check`: zero errors, warnings or hints.
 - `npm run build`: static homepage, 404, robots and sitemap generated successfully, with default null launch configuration and no secrets.
-- `npm test`: **8 configuration tests and 16 browser tests passed**, none skipped. Browser tests use actual production builds, including an isolated live configuration.
+- `npm test`: **8 configuration tests and 17 browser tests passed**, none skipped. Browser tests use actual production builds, including an isolated live configuration.
 - Default pre-launch has no Copy, Explorer, Buy or unconfigured social actions. Live fixture exposes address, trading and explorer controls; clipboard success and failure are announced. Invalid live values are rejected by configuration tests.
 - Keyboard menu activation, Tab order, Escape/focus restoration, FAQ, pause, reduced motion and no-JavaScript navigation/content verified.
 - Internal anchors resolve; three downloaded assets contain standalone SVG artwork; all local images decode. No browser page errors in responsive checks.
@@ -36,7 +38,7 @@ Orbit phases: [start](screenshots/orbit-start.png), [2.5 seconds](screenshots/or
 - Full-page screenshots captured and visually inspected at **390×844**, **768×1024**, **1440×1000**. No horizontal overflow. Close-up mobile/desktop hero and posters, plus the 1200×630 social PNG, were inspected. The missing diagonal-arrow font glyph was replaced with inline SVG; no-JavaScript mobile navigation uses a nonsticky header so expanded links cannot cover anchor targets.
 - Original logo archive contents and public SVG variants were compared byte-for-byte with the supplied files; they match.
 
-Screenshots: [mobile](screenshots/mobile.png), [tablet](screenshots/tablet.png), [desktop](screenshots/desktop.png). Motion is reduced for stable full-page visual evidence. The current orbit phases are linked above; earlier transfer captures are historical.
+Screenshots: [mobile](screenshots/mobile.png), [tablet](screenshots/tablet.png), [desktop](screenshots/desktop.png). Motion is reduced for stable full-page visual evidence. The current hero captures are linked above; earlier orbit and transfer captures are historical.
 
 ## Performance evidence from the preceding refinement
 

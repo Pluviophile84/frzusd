@@ -233,60 +233,150 @@ test('reduced-motion return is immediate and branding is consistent', async ({
   expect(await page.evaluate(() => scrollY)).toBe(0);
 });
 
-test('tokens circulate with depth, pause in place and retain a static reduced-motion scene', async ({
+test('twelve frozen assemblies retain upright orientation and stay separated through a full revolution', async ({
+  page,
+}) => {
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto('/');
+    await page.locator('.hero-art').scrollIntoViewIfNeeded();
+    await expect(page.locator('.hero-art')).toHaveClass(/motion-ready/);
+    await expect(page.locator('.hero-art img')).toHaveCount(12);
+    await expect(page.locator('.orbital-ring-outer img')).toHaveCount(3);
+    await expect(page.locator('.orbital-ring-inner img')).toHaveCount(8);
+    await expect(page.locator('.hero-art img[src*="/brand/"]')).toHaveCount(0);
+    const sample = async (time: number) =>
+      page.locator('.orbital-system').evaluate((scene, t) => {
+        scene.querySelectorAll('.orbit-carrier, .orbit-counter').forEach((el) =>
+          el.getAnimations().forEach((a) => {
+            a.pause();
+            a.currentTime = t;
+          }),
+        );
+        const bounds = scene.getBoundingClientRect();
+        const boxes = [...scene.querySelectorAll('img')].map((el) => {
+          const r = el.getBoundingClientRect();
+          return {
+            x: r.x - bounds.x,
+            y: r.y - bounds.y,
+            w: r.width,
+            h: r.height,
+          };
+        });
+        const upright = [...scene.querySelectorAll('.orbit-counter')].every(
+          (el) => {
+            const carrier = el.closest('.orbit-carrier')!;
+            const combined = new DOMMatrix(
+              getComputedStyle(carrier).transform,
+            ).multiply(new DOMMatrix(getComputedStyle(el).transform));
+            return (
+              Math.abs(combined.a - 1) < 0.001 &&
+              Math.abs(combined.b) < 0.001 &&
+              Math.abs(combined.c) < 0.001 &&
+              Math.abs(combined.d - 1) < 0.001
+            );
+          },
+        );
+        const timing = [
+          ...scene.querySelectorAll('.orbit-carrier,.orbit-counter'),
+        ].every((el) => {
+          const style = getComputedStyle(el);
+          return (
+            style.animationDuration === '100s' &&
+            style.animationTimingFunction === 'linear'
+          );
+        });
+        return { boxes, upright, timing, size: bounds.width };
+      }, time);
+    const start = await sample(0);
+    const quarter = await sample(25000);
+    expect(quarter.boxes[1].x).toBeGreaterThan(
+      start.boxes[1].x + start.size * 0.3,
+    );
+    expect(quarter.boxes[4].x).toBeLessThan(
+      start.boxes[4].x - start.size * 0.2,
+    );
+    for (const time of [0, 12500, 25000, 50000, 75000, 99999, 100000]) {
+      const state = await sample(time);
+      expect(state.upright).toBe(true);
+      expect(state.timing).toBe(true);
+      for (const box of state.boxes) {
+        expect(box.x).toBeGreaterThanOrEqual(-0.5);
+        expect(box.y).toBeGreaterThanOrEqual(-0.5);
+        expect(box.x + box.w).toBeLessThanOrEqual(state.size + 0.5);
+        expect(box.y + box.h).toBeLessThanOrEqual(state.size + 0.5);
+      }
+      for (let i = 0; i < state.boxes.length; i++)
+        for (let j = i + 1; j < state.boxes.length; j++) {
+          const a = state.boxes[i],
+            b = state.boxes[j];
+          expect(
+            a.x + a.w <= b.x ||
+              b.x + b.w <= a.x ||
+              a.y + a.h <= b.y ||
+              b.y + b.h <= a.y,
+          ).toBe(true);
+        }
+    }
+    const loop = await sample(100000);
+    expect(loop.boxes[1].x).toBeCloseTo(start.boxes[1].x, 1);
+    expect(loop.boxes[1].y).toBeCloseTo(start.boxes[1].y, 1);
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth),
+    ).toBe(width);
+  }
+});
+
+test('orbit pauses offscreen and in a hidden tab, and user pause survives visibility changes', async ({
   page,
 }) => {
   await page.goto('/');
-  await expect(page.locator('.hero-art')).toHaveClass(/motion-ready/);
-  const token = page.locator('.orbit-token').first();
-  const sampleAt = async (time: number) =>
-    token.evaluate((el, t) => {
-      const animation = el.getAnimations()[0];
-      animation.pause();
-      animation.currentTime = t;
-      const box = el.getBoundingClientRect();
-      return {
-        x: box.x,
-        y: box.y,
-        distance: getComputedStyle(el).offsetDistance,
-      };
-    }, time);
-  const start = await sampleAt(0);
-  const quarter = await sampleAt(5000);
-  expect(Math.abs(quarter.x - start.x)).toBeGreaterThan(60);
-  expect(Math.abs(quarter.y - start.y)).toBeGreaterThan(30);
-  const depths = await page.locator('.token-depth').evaluateAll((els) =>
-    els.map((el) => {
-      const a = el.getAnimations()[0];
-      a.pause();
-      a.currentTime = 0;
-      return new DOMMatrix(getComputedStyle(el).transform).a;
-    }),
-  );
-  expect(Math.max(...depths) - Math.min(...depths)).toBeGreaterThan(0.15);
+  const art = page.locator('.hero-art');
+  await expect(art).toHaveClass(/is-moving/);
+  await page.locator('#faq').scrollIntoViewIfNeeded();
+  await expect(art).not.toHaveClass(/is-moving/);
+  await art.scrollIntoViewIfNeeded();
+  await expect(art).toHaveClass(/is-moving/);
+  await page.evaluate(() => {
+    Object.defineProperty(document, 'hidden', {
+      configurable: true,
+      value: true,
+    });
+    document.dispatchEvent(new Event('visibilitychange'));
+  });
+  await expect(art).not.toHaveClass(/is-moving/);
+  await page.evaluate(() => {
+    Object.defineProperty(document, 'hidden', {
+      configurable: true,
+      value: false,
+    });
+    document.dispatchEvent(new Event('visibilitychange'));
+  });
+  await expect(art).toHaveClass(/is-moving/);
   await page.getByRole('button', { name: 'Pause movement' }).click();
-  const paused = await token.evaluate(
-    (el) => getComputedStyle(el).offsetDistance,
-  );
-  await page.waitForTimeout(200);
-  expect(
-    await token.evaluate((el) => getComputedStyle(el).offsetDistance),
-  ).toBe(paused);
+  const positions = await page
+    .locator('.orbit-carrier,.orbit-counter')
+    .evaluateAll((els) => els.map((el) => getComputedStyle(el).transform));
+  await page.waitForTimeout(150);
   expect(
     await page
-      .locator('.orbit-token, .token-depth')
+      .locator('.orbit-carrier,.orbit-counter')
+      .evaluateAll((els) => els.map((el) => getComputedStyle(el).transform)),
+  ).toEqual(positions);
+  await page.locator('#faq').scrollIntoViewIfNeeded();
+  await art.scrollIntoViewIfNeeded();
+  await expect(art).not.toHaveClass(/is-moving/);
+  await page.getByRole('button', { name: 'Replay movement' }).click();
+  await expect(art).toHaveClass(/is-moving/);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  expect(
+    await page
+      .locator('.orbit-carrier,.orbit-counter')
       .evaluateAll((els) =>
-        els.every((el) => getComputedStyle(el).animationPlayState === 'paused'),
+        els.every((el) => getComputedStyle(el).animationName === 'none'),
       ),
   ).toBe(true);
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  const positions = await page
-    .locator('.orbit-token')
-    .evaluateAll((els) =>
-      els.slice(0, 4).map((el) => getComputedStyle(el).offsetDistance),
-    );
-  expect(new Set(positions).size).toBe(4);
-  await expect(page.locator('.orbit-canvas')).toBeVisible();
+  await expect(page.locator('.hero-art img')).toHaveCount(12);
 });
 
 test('reserve proposition, section order, mobile anchor and FAQ preserve the parody distinction', async ({

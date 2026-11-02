@@ -10,9 +10,11 @@ The current refinement retains clear front alpha and structural edge shading. Th
 
 ## Animation reference
 
-The current hero uses an original SVG/CSS orbit scene based on the owner's description of circulating tokens on Tether. A fresh request to https://tether.to/en/ returned a proxy-policy 403; the live reference was not visually reviewed or copied. Four Frozen USD tokens follow a 20-second elliptical orbit around the central ice cube. Matched front/rear layers establish occlusion, and restrained scale/opacity changes communicate depth. The earlier two-wallet transfer scene, originally informed by the owner's GitHub reference, has been replaced.
+The current hero follows the motion architecture in the owner's supplied orbital brief: one stationary frozen cube, three outer frozen cubes at 120° phases, eight inner frozen cubes at 45° phases, and opposing 100-second linear circular revolutions. Each carrier has a separate radial offset and exactly opposite counter-rotation, including its starting phase, so the whole coin-and-ice assembly remains upright. All twelve objects use the approved frozen artwork; there are no bare emblem markers. Reused raster exports have no SVG gradient/filter ID collisions. The five fine dotted circular guides have no material filters.
 
-Pause freezes the current orbit positions. No-JavaScript and reduced-motion modes show four distinct resting token positions around a complete, static cube. No external motion library, canvas or WebGL engine is required.
+The live Tether URL remained inaccessible through the configured proxy in the previous reference attempt; no live visual inspection or copied Tether code/artwork is claimed. The supplied brief is the mechanism source. The earlier elliptical bare-token scene has been replaced.
+
+User pause freezes carriers and counter-rotations together. IntersectionObserver and visibilitychange pause offscreen/hidden-tab motion; a manual pause survives these changes. Reduced-motion and no-JavaScript modes show the complete twelve-cube static arrangement. No external motion library, canvas or WebGL engine is required.
 
 ## Typography and finished art
 

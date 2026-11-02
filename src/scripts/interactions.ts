@@ -36,18 +36,33 @@ const motion = document.querySelector<HTMLButtonElement>('.motion-toggle');
 const art = document.querySelector<HTMLElement>('.hero-art');
 if (motion && art) {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  const apply = (paused: boolean) => {
-    art.classList.toggle('is-moving', !paused);
+  let userPaused = reduced.matches;
+  let inView = true;
+  const apply = () => {
+    const paused = userPaused || reduced.matches;
+    art.classList.toggle('is-moving', !paused && inView && !document.hidden);
     motion.setAttribute('aria-pressed', String(paused));
     motion.textContent = paused ? 'Replay movement' : 'Pause movement';
   };
   motion.hidden = false;
   art.classList.add('motion-ready');
-  apply(reduced.matches);
-  motion.addEventListener('click', () =>
-    apply(motion.getAttribute('aria-pressed') !== 'true'),
-  );
-  reduced.addEventListener('change', () => apply(reduced.matches));
+  apply();
+  motion.addEventListener('click', () => {
+    userPaused = !userPaused;
+    apply();
+  });
+  reduced.addEventListener('change', () => {
+    userPaused = reduced.matches;
+    apply();
+  });
+  document.addEventListener('visibilitychange', apply);
+  if ('IntersectionObserver' in window) {
+    const visibility = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      apply();
+    });
+    visibility.observe(art);
+  }
 }
 document
   .querySelectorAll<HTMLButtonElement>('[data-copy]')
