@@ -10,13 +10,15 @@ The owner-provided `frozenusd` reference was rendered and inspected in Chromium 
 
 The top anchor now sits at the actual document origin rather than on the sticky header. Both logos and the footer return link use document scrolling without reloading the homepage. Three browser regression tests verify intermediate smooth-scroll positions and arrival at zero, and another verifies immediate reduced-motion return and updated branding.
 
-## Reserve narrative and optical-density update
+## Reserve narrative and latest clear-ice refinement
 
 Added the exact supplied reserve copy in the hero, a dedicated section immediately after Hero, shared header/mobile/footer navigation, and the FAQ. The token configuration, factual table, financial clarification, official brand assets and motion implementation remain unchanged.
 
-Reduced transmission through the existing front ice layer by approximately 15%, bounded by the source alpha. Rear ice, RGB values, original texture and coin artwork are unchanged. This also covers the central emblem. Both WebP sizes, the portable SVG and social previews were rebuilt; posters contain standalone logos and remain unchanged. Actual cube usages are Hero, Idea, Product stages and social previews; the existing 404 has no cube illustration.
+The latest three-change request supersedes the 15% density adjustment. The original clear front alpha is restored. Existing edge tones are selectively darkened at the lower boundary and right face with source-luminance variation, leaving the center and upper highlights clear. Coin, rim and existing internal shadow scale together by 20%; existing front details and reflections remain ahead of them. Reserves now has a full-width #071827 background, white headings, #79DAFF figures and accents, readable #b6cbd9 supporting text and subtle #304859 dividers. Wording and responsive layout remain unchanged.
 
-[Matching before/after comparison](screenshots/ice-density-comparison.png) shows both export sizes against the same background and at the same resting position. [Desktop reserves](screenshots/reserves-1440.png) and [mobile reserves](screenshots/reserves-390.png) show the new section. Responsive captures at 390, 768, 901, 1024, 1100 and 1440px showed no horizontal overflow. Browser assertions cover the section order, hero anchor clearance, mobile navigation, footer links, FAQ paragraphs and intermediate-width navigation spacing.
+[Current matching before/after comparison](screenshots/clear-ice-comparison.png) shows large and small exports at identical sizes against the same pale background, at the same resting position. [Desktop reserves](screenshots/reserves-1440.png) and [mobile reserves](screenshots/reserves-390.png) show the full-width dark treatment. Responsive captures at 390, 768, 901, 1024, 1100 and 1440px showed no horizontal overflow. The larger coin remains fully inside the same cube silhouette, with visible front reflections and an intact ice margin. Both WebP sizes, portable SVG and social previews were rebuilt; posters contain standalone logos and remain unchanged. Actual cube usages are Hero, Idea, Product stages and social previews; the existing 404 has no cube illustration.
+
+All existing checks passed after this refinement: 8 configuration tests, 16 browser tests, production build and type check (zero errors/warnings/hints). Responsive browser checks include axe contrast scans. Motion, launch configuration, factual table, copy and standalone official assets are unchanged. The [earlier density comparison](screenshots/ice-density-comparison.png) is retained as historical evidence only.
 
 ## Results
 

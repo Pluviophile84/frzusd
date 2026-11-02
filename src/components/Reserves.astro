@@ -2,36 +2,44 @@
 import { reserves } from '../content/home';
 ---
 
-<section
-  id="reserves"
-  class="section wrap reserves"
-  aria-labelledby="reserves-title"
->
-  <p class="eyebrow">{reserves.eyebrow}</p>
-  <div class="reserve-introduction">
-    <h2 id="reserves-title">{reserves.heading}</h2>
-    <p>{reserves.body}</p>
-  </div>
-  <dl class="reserve-statements">
-    {reserves.statements.map(({ value, label, supporting }) => (
+<section id="reserves" class="reserves" aria-labelledby="reserves-title">
+  <div class="section wrap">
+    <p class="eyebrow">{reserves.eyebrow}</p>
+    <div class="reserve-introduction">
+      <h2 id="reserves-title">{reserves.heading}</h2>
+      <p>{reserves.body}</p>
+    </div>
+    <dl class="reserve-statements">
+      {reserves.statements.map(({ value, label, supporting }) => (
+        <div>
+          <dt>{label}</dt>
+          <dd class="reserve-value">{value}</dd>
+          <dd class="reserve-supporting">{supporting}</dd>
+        </div>
+      ))}
+    </dl>
+    <div class="reserve-transparency">
+      <h3>{reserves.transparency.heading}</h3>
       <div>
-        <dt>{label}</dt>
-        <dd class="reserve-value">{value}</dd>
-        <dd class="reserve-supporting">{supporting}</dd>
+        <p>{reserves.transparency.text}</p>
+        <p class="small muted">{reserves.transparency.note}</p>
       </div>
-    ))}
-  </dl>
-  <div class="reserve-transparency">
-    <h3>{reserves.transparency.heading}</h3>
-    <div>
-      <p>{reserves.transparency.text}</p>
-      <p class="small muted">{reserves.transparency.note}</p>
     </div>
   </div>
 </section>
 <style>
   .reserves {
-    border-top: 1px solid var(--line);
+    --muted: #b6cbd9;
+    --line: #304859;
+    background: #071827;
+    color: #fff;
+  }
+  .reserves .eyebrow,
+  .reserve-value {
+    color: #79daff;
+  }
+  .reserve-transparency p {
+    color: var(--muted);
   }
   .reserve-introduction {
     display: grid;
