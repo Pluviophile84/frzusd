@@ -1,0 +1,62 @@
+---
+import { site } from '../config/site';
+---
+
+<footer class="wrap">
+  <div class="footer-top">
+    <a class="brand" href="/">
+      <img src="/brand/Frozen-USD-Master.svg" width="38" height="38" alt="" />
+      FROZEN USD
+    </a>
+    <p>Keep it cold.</p>
+    <a href="#top" class="text-link">
+      Back to top ↑
+    </a>
+  </div>
+  <div class="footer-bottom">
+    <div>
+      <p>FROZEN USD — Frozen. Still moving.</p>
+      <p class="disclaimer">
+        Independent memecoin parody. No dollar peg or redemption. No affiliation
+        with Tether, Circle or Binance. Cryptoassets can lose all their value.
+      </p>
+    </div>
+    <div class="footer-links">
+      {site.social.xUrl && (
+        <a href={site.social.xUrl}>
+          Follow on X{' '}
+          <svg
+            class="arrow"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+          >
+            <path d="M6 18 18 6M6 6h12v12" />
+          </svg>
+        </a>
+      )}
+      {site.social.communityUrl && (
+        <a href={site.social.communityUrl}>
+          Community{' '}
+          <svg
+            class="arrow"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+          >
+            <path d="M6 18 18 6M6 6h12v12" />
+          </svg>
+        </a>
+      )}
+      <span>© {new Date().getFullYear()} FROZEN USD</span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,8 @@
+node_modules
+dist
+.astro
+assets-original
+public/media
+public/brand
+package-lock.json
+test-results

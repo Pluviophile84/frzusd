@@ -1,0 +1,80 @@
+---
+import { site } from '../config/site';
+import Contract from './Contract.astro';
+const live = site.token.status === 'live';
+---
+
+<section class="hero wrap" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <div class="eyebrow">FROZEN USD · $FRZUSD</div>
+    <span class="identity">MEMECOIN PARODY</span>
+    <h1 id="hero-title">
+      The dollar that
+      <br class="desktop-break" /> trades frozen.
+    </h1>
+    <p class="hero-description">
+      Transfer it. Trade it.
+      <br />
+      No thawing required.
+    </p>
+    <p class="signature">Frozen. Still moving.</p>
+    <div class="actions">
+      <a class="button" href={live ? site.token.tradeUrl! : '#idea'}>
+        {live ? 'Buy $FRZUSD' : 'Explore frozen finance'}{' '}
+        <span aria-hidden="true">
+          <svg
+            class="arrow"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+          >
+            <path d="M6 18 18 6M6 6h12v12" />
+          </svg>
+        </span>
+      </a>
+      <a class="text-link" href={live ? '#idea' : '#token'}>
+        {live ? 'Explore frozen finance' : 'Token details'}{' '}
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+    <Contract />
+  </div>
+  <figure class="hero-art">
+    <div class="art-top">
+      <span>01 / FROZEN IN TRANSIT</span>
+      <span>CONCEPT ILLUSTRATION</span>
+    </div>
+    <div class="art-stage">
+      <div class="orbit orbit-one"></div>
+      <div class="orbit orbit-two"></div>
+      <span class="wallet wallet-a" aria-hidden="true">
+        A
+      </span>
+      <span class="wallet wallet-b" aria-hidden="true">
+        B
+      </span>
+      <img
+        class="moving-object"
+        src="/media/frozen-dollar.svg"
+        width="620"
+        height="620"
+        alt="The official Frozen USD coin suspended inside a clear, beveled ice block, travelling between two wallet destinations."
+        fetchpriority="high"
+      />
+    </div>
+    <figcaption>
+      <div>
+        <span class="status-dot"></span> Location: updated
+        <br />
+        <span class="caption-indent">Temperature: unchanged</span>
+      </div>
+      <button class="motion-toggle" aria-pressed="false" hidden>
+        Pause movement
+      </button>
+    </figcaption>
+  </figure>
+</section>

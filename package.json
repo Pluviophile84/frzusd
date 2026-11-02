@@ -1,0 +1,32 @@
+{
+  "name": "frozen-usd",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "check": "astro check",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "npm run build && node --experimental-strip-types --test tests/config.test.ts && playwright test",
+    "format": "prettier --write src tests scripts astro.config.mjs playwright.config.ts tsconfig.json package.json docs README.md .github",
+    "perf": "node scripts/measure-performance.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/manrope": "5.3.0",
+    "astro": "7.4.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.64.1",
+    "@types/node": "26.6.6",
+    "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.2",
+    "sharp": "0.35.5",
+    "typescript": "6.0.3"
+  }
+}

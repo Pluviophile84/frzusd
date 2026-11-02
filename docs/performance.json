@@ -1,0 +1,23 @@
+{
+  "method": "Chromium, 390x844 @2x, cold cache, 1.6 Mbps down / 750 Kbps up, 150ms latency, 4x CPU slowdown; local production preview, 4s observation",
+  "results": [
+    {
+      "run": 1,
+      "lcp": 648,
+      "cls": 0,
+      "transferBytes": 37273
+    },
+    {
+      "run": 2,
+      "lcp": 660,
+      "cls": 0,
+      "transferBytes": 37273
+    },
+    {
+      "run": 3,
+      "lcp": 676,
+      "cls": 0,
+      "transferBytes": 37273
+    }
+  ]
+}

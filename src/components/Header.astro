@@ -1,0 +1,47 @@
+---
+import { site } from '../config/site';
+const live = site.token.status === 'live';
+---
+
+<header id="top">
+  <div class="header-inner wrap">
+    <a class="brand" href="/" aria-label="Frozen USD home">
+      <img src="/brand/Frozen-USD-Master.svg" width="38" height="38" alt="" />
+      FROZEN USD
+    </a>
+    <button
+      class="menu-toggle"
+      aria-controls="navigation"
+      aria-expanded="false"
+      hidden
+    >
+      Menu <span aria-hidden="true">+</span>
+    </button>
+    <nav id="navigation" aria-label="Main navigation">
+      <a href="/#idea">The idea</a>
+      <a href="/#how-it-works">How it works</a>
+      <a href="/#token">The cold facts</a>
+      <a href="/#memes">Memes</a>
+    </nav>
+    <a
+      class="button compact header-action"
+      href={live ? site.token.tradeUrl! : '/#token'}
+    >
+      {live ? 'Buy $FRZUSD' : 'Token details'}{' '}
+      <span aria-hidden="true">
+        <svg
+          class="arrow"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          aria-hidden="true"
+        >
+          <path d="M6 18 18 6M6 6h12v12" />
+        </svg>
+      </span>
+    </a>
+  </div>
+</header>

@@ -1,0 +1,39 @@
+---
+import { site } from '../config/site';
+const live = site.token.status === 'live';
+---
+
+<div class="contract-strip">
+  {live ? (
+    <>
+      <span class="tiny-label">CONTRACT</span>
+      <code>{site.token.contractAddress}</code>
+      <button class="text-button" data-copy={site.token.contractAddress} hidden>
+        Copy address
+      </button>
+      {site.token.explorerUrl && (
+        <a href={site.token.explorerUrl}>
+          Explorer{' '}
+          <svg
+            class="arrow"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+          >
+            <path d="M6 18 18 6M6 6h12v12" />
+          </svg>
+        </a>
+      )}
+      <span class="copy-status" role="status" aria-live="polite"></span>
+    </>
+  ) : (
+    <>
+      <span class="status-dot" aria-hidden="true"></span>
+      <span>Contract address not available yet.</span>
+    </>
+  )}
+</div>
